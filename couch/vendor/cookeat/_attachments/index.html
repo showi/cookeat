@@ -1,0 +1,76 @@
+<!doctype html>
+<html ng-app="cookeat">
+<head>
+<!-- build:css cookeat.min.css -->
+<link
+  href="component/bootstrap.min.css"
+  rel="stylesheet"
+  type="text/css">
+<link
+  href="cookeat.css"
+  rel="stylesheet"
+  type="text/css">
+<!-- endbuild -->
+<!-- build:js cookeat.min.js -->
+<!-- angular component -->
+<script src="component/jquery.min.js"></script>
+<script src="component/bootstrap.min.js"></script>
+<script src="component/angular.min.js"></script>
+<script src="component/angular-route.min.js"></script>
+<script src="component/angular-resource.min.js"></script>
+<script src="component/angular-cookies.min.js"></script>
+<script src="component/angular-animate.min.js"></script>
+<script src="component/angular-modal-service.min.js"></script>
+<!-- application component -->
+<script src="module/login/service.js"></script>
+<script src="module/login/controller.js"></script>
+<script src="module/recipe/service.js"></script>
+<script src="module/recipe/controller.js"></script>
+<script src="module/tag/service.js"></script>
+<script src="module/tag/controller.js"></script>
+<script src="module/ingredient/service.js"></script>
+<script src="module/ingredient/controller.js"></script>
+<script src="module/couchdb/service.js"></script>
+<script src="module/core/service.js"></script>
+<!-- application -->
+<script src="cookeat.js"></script>
+<!-- endbuild -->
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div
+      class="collapse navbar-collapse"
+      id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#!/recipe/list">Recette</a>
+        </li>
+        <li>
+          <a href="#!/ingredient/list">Ingrédient</a>
+        </li>
+        <li>
+          <a href="#!/tag/list">tag</a>
+        </li>
+        <li></li>
+      </ul>
+      <div class="cookeat-login">
+        <a
+          ng-controller="LoginCtrl"
+          ng-if="loggedIn"
+          ng-click="logout()"
+          href="#!/login">
+          <span class="btn btn-warning btn-sm">logout</span>
+        </a>
+        <a
+          ng-if="!loggedIn"
+          href="#!/">
+          <span class="btn btn-success btn-sm">login</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div
+    class="container-fluid"
+    ng-view></div>
+</body>
+</html>

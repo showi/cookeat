@@ -1,0 +1,9 @@
+<h2>{{recipe.title}}</h2>
+<span ng-repeat="tag in recipe.tag">
+<span class="label label-info">{{tag}}</span>
+</span>
+<p class="well">{{recipe.summary}}</p>
+<h4>Ingrédients</h4>
+<ul ng-repeat="ingredient in recipe.ingredient track by ingredient.name">
+<li>{{ingredient.name}} ({{ingredient.quantity}} / {{ingredient.measure}})</li>
+</ul>

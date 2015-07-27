@@ -1,0 +1,7 @@
+<div role="button" class="btn btn-warning pull-right" ng-click="create()">Nouvel ingrédient</div>
+<h2>Liste des ingrédients <span class="badge">{{ingredients.length}}</span></h2>
+<ul class="list-inline">
+  <li ng-repeat="ingredient in ingredients">
+    <a href="#!/ingredient/view/{{ingredient.id}}">{{ingredient.key}}</a>
+  </li>
+</ul>

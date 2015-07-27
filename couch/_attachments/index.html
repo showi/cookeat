@@ -1,0 +1,22 @@
+<!doctype html>
+<html ng-app="cookeatApplication">
+  <head>
+  <!-- build:js cookeat.min.js -->
+    <script src="vendor/cookeat/component/angular.min.js"></script>
+    <script src="vendor/cookeat/component/angular-cookies.min.js"></script>
+    <script src="vender/cookeat/component/angular-animate.min.js"></script>
+    
+    <script src="vendor/cookeat/module/recipe/recipe-service.js"></script>
+    <script src="vendor/cookeat/cookeat.js"></script>
+  <!-- endbuild -->
+  </head>
+  <body>
+  <div ng-view></div>
+    <div>
+      <label>Name:</label>
+      <input type="text" ng-model="yourName" placeholder="Enter a name here">
+      <hr>
+      <h1>Hello {{yourName}}!</h1>
+    </div>
+  </body>
+</html>

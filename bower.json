@@ -1,0 +1,33 @@
+{
+  "name": "cookeat",
+  "version": "0.0.0",
+  "authors": [
+    "showi <joachim.basmaison@gmail.com>"
+  ],
+  "description": "Online cooking recipe",
+  "main": "src/cooleat.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "cooking",
+    "recipe"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3",
+    "angular-animate": "~1.4.3",
+    "angular-cookies": "~1.4.3",
+    "angular-resource": "~1.4.3",
+    "angular-route": "~1.4.3",
+    "bootstrap": "~3.3.5",
+    "angular-modal-service": "~0.6.7"
+  }
+}
