@@ -3,45 +3,60 @@
 angular.module('cookeat-recipe').controller(
   'RecipeCtrl',
   [
-      '$scope', '$routeParams', 'RecipeService',
+      '$scope',
+      '$routeParams',
+      'RecipeService',
       function RecipeCtrl($scope, $routeParams, Recipe) {
-        /** Crée une nouvelle recette
+        /**
+         * Crée une nouvelle recette
          */
         $scope.create = function() {
-          console.log("Creating new recipe");
-          Recipe.create();
+          console.log("Creating new recipe", Recipe);
+          Recipe.update({
+            fn : 'recipe'
+          }).then(function(response) {
+            Recipe.save();
+          });
         };
-        /** Main
+        /**
+         * Main
          * 
          * @note: Si le paramètre $routeParams.id est définis on affiche une
-         * recette sinon la liste des recettes.
+         *        recette sinon la liste des recettes.
          */
         if ($routeParams.id === undefined) {
-          //couch.view('recipe')
+          // couch.view('recipe')
           Recipe.list().then(function(response) {
-            $scope.recipes = angular.copy(response.rows);
+            console.log('response', response);
+            $scope.recipes = angular.copy(response);
           }, function(error) {
-            console.error('Cannot list recipe, ', error);
+            console.error('Cannot list recipe');
           });
         } else {
-          Recipe.get($routeParams.id).then(function(response) {
-            $scope.recipe = angular.copy(response);
-          }, function(error) {
-            console.error('Cannot show recipe with id', $routeParams.id,
-              ', error:', error);
-          });
+          Recipe.show($routeParams.id).then(
+            function(response) {
+              $scope.recipe = angular.copy(response);
+            },
+            function(error) {
+              console.error(
+                'Cannot show recipe with id',
+                $routeParams.id,
+                ', error:',
+                error);
+            });
         }
       }
   ]).controller(
-    'RecipeCreateCtrl',
-    [
-        '$scope', 'RecipeService', 'close',
-        function RecipeCreateCtrl($scope, Recipe, close) {
-          /** Ferme le modal
-           */
-          $scope.close = function(answer) {
-           console.log('Closing modal');
-           close(answer, 500);
-          };
-        }
-    ]);
+  'RecipeCreateCtrl',
+  [
+      '$scope', '$element', 'RecipeService', 'close',
+      function RecipeCreateCtrl($scope, $element, Recipe, close) {
+        /**
+         * Ferme le modal
+         */
+        $scope.close = function(answer) {
+          $element.modal('hide');
+          close(answer);
+        };
+      }
+  ]);
