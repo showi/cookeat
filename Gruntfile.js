@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 //      ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
     // Task configuration.
     clean: {
-        dist: ['couch/vendor/cookeat/_attachments/'],
+        dist: ['couch/cookeat/vendor/cookeat/_attachments/'],
     },
     concat: {
       options: {
@@ -20,8 +20,11 @@ module.exports = function(grunt) {
         stripBanners: true,
       },
       dist: {
-        src: ['app/component/**.js', 'app/module/angular.min.js', 'app/module/**.js', 'app/<%= pkg.name %>.js',],
-        dest: 'couch/vendor/cookeat/_attachments/<%= pkg.name %>.min.js'
+        src: ['app/component/**.js',
+              'app/module/angular.min.js',
+              'app/module/**.js',
+              'app/<%= pkg.name %>.js',],
+        dest: 'couch/cookeat/vendor/cookeat/_attachments/<%= pkg.name %>.min.js'
       }
     },
     uglify: {
@@ -30,12 +33,15 @@ module.exports = function(grunt) {
       },
       dist: {
         src: '<%= concat.dist.dest %>',
-        dest: 'couch/vendor/cookeat/_attachments/<%= pkg.name %>.min.js'
+        dest: 'couch/cookeat/vendor/cookeat/_attachments/<%= pkg.name %>.min.js'
       }
     },
     copy: {
         bower: { 
-            src: ['build/bower_components/**/*.min.js', 'build/bower_components/**/*.map', 'build/bower_components/**/*.min.css'],
+            src: ['build/bower_components/**/*.min.js', 
+                  'build/bower_components/**/*.map', 
+                  'build/bower_components/**/*.min.css', 
+                  'build/bower_components/angular-xeditable/dist/css/xeditable.css'],
             dest: 'app/component/',
             flatten: true,
             expand: true, 
@@ -43,7 +49,7 @@ module.exports = function(grunt) {
         couch: {
             cwd: 'app',
             src: ['**/*.html', '**/*.js', '**/*.css'],
-            dest: 'couch/vendor/cookeat/_attachments/',
+            dest: 'couch/cookeat/vendor/cookeat/_attachments/',
             expand: true,
         },
     },
@@ -81,13 +87,16 @@ module.exports = function(grunt) {
       }
     },
     shell: {
-        couch: { 
             options: { 
                 stderr: true 
             },
-            command: 'couchapp push couch http://sho:admin@localhost:5984/cookeat'
+            cookeat: {
+                command: 'couchapp push couch/cookeat http://sho:admin@localhost:5984/cookeat',
+            },
+            recipe: {
+                command: 'couchapp push --docid _design/recipe couch/recipe http://sho:admin@localhost:5984/cookeat',
+            }
         },
-    }
   });
 
   // These plugins provide necessary tasks.
@@ -101,6 +110,6 @@ module.exports = function(grunt) {
    grunt.loadNpmTasks('grunt-shell');
 
   // Default task.
-  grunt.registerTask('default', ['copy:bower', 'copy:couch', 'shell:couch']);
+  grunt.registerTask('default', ['copy:bower', 'copy:couch', 'shell:cookeat', 'shell:recipe']);
 
 };
