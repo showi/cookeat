@@ -8,11 +8,9 @@ function(doc, req) {
     json: {
       id: doc._id,
       rev: doc._rev,
-      title: doc.title,
-      tag: doc.tag,
-      step: doc.step,
+      name: doc._name,
       language: doc.language,
-      ingredient: doc.ingredient,
+      description: doc.description,
     }
   };
 };

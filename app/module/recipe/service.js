@@ -11,12 +11,7 @@ angular.module('cookeat-recipe', [
       function($resource, $routeParams, Modal, Couch) {
         return {
           list: function() {
-            return Couch.list('recipe', 'list').then(function(response){
-              console.log('Response', response);
-            });
-// .catch(function(error) {
-// console.error('Cannot list recipe, ', error);
-// });
+            return Couch.list('recipe', 'list');
           },
           get: function(id) {
             return Couch.doc($routeParams.id).catch(function(error) {

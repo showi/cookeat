@@ -27,13 +27,12 @@ angular.module('cookeat-recipe').controller(
         if ($routeParams.id === undefined) {
           // couch.view('recipe')
           Recipe.list().then(function(response) {
-            console.log('response', response);
-            $scope.recipes = angular.copy(response);
+            $scope.recipes = angular.copy(response.rows);
           }, function(error) {
             console.error('Cannot list recipe');
           });
         } else {
-          Recipe.show($routeParams.id).then(
+          Recipe.get($routeParams.id).then(
             function(response) {
               $scope.recipe = angular.copy(response);
             },

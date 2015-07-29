@@ -3,21 +3,57 @@
 angular.module('cookeat-ingredient').controller(
   'IngredientCtrl',
   [
-      '$routeParams', '$scope', 'CouchdbService',
-      function IngredientListCtrl($routeParams, $scope, couch) {
+      '$scope',
+      '$routeParams',
+      'IngredientService',
+      function IngredientCtrl($scope, $routeParams, Ingredient) {
+
+        $scope.create = function() {
+          console.log("Creating new recipe", Ingredient);
+          Ingredient.create().then(function(response) {
+            Ingredient.save();
+          });
+        };
+        /**
+         * Main
+         * 
+         * @note: Si le paramètre $routeParams.id est définis on affiche une
+         */
+        // recette sinon la liste des recettes.
         if ($routeParams.id === undefined) {
-          couch.view('ingredient').then(function(response) {
-            $scope.ingredients  = angular.copy(response.rows); 
+          $scope.ingredients = [];
+          Ingredient.list().then(function(response) {
+            console.log('Ingredient list', response);
+            angular.copy(response.rows, $scope.ingredients);
           }, function(error) {
-            console.error('Cannot list ingredient,', error);
+            console.error('Cannot list recipe');
           });
         } else {
-          couch.doc($routeParams.id).then(function(response) {
-            $scope.ingredient = angular.copy(response);
-          }, function(error) {
-            console.error('Cannot show ingredient with id:', 
-              $routeParams.id, ', error:', error);
-          });
+          $scope.ingredient = {};
+          Ingredient.get($routeParams.id).then(
+            function(response) {
+              angular.copy(response, $scope.ingredient);
+            },
+            function(error) {
+              console.error(
+                'Cannot show recipe with id',
+                $routeParams.id,
+                ', error:',
+                error);
+            });
         }
+      }
+  ]).controller(
+  'IngredientCreateCtrl',
+  [
+      '$scope', '$element', 'RecipeService', 'close',
+      function RecipeCreateCtrl($scope, $element, Recipe, close) {
+        /**
+         * Ferme le modal
+         */
+        $scope.close = function(answer) {
+          $element.modal('hide');
+          close(answer);
+        };
       }
   ]);

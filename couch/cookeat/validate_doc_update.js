@@ -1,4 +1,5 @@
 function(newDoc, oldDoc, userCtx) {
+  return;
   // !code vendor/cookeat/lib/commonfn.js
   // !code vendor/cookeat/lib/validate.js
   

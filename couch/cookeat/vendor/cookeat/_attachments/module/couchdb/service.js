@@ -26,24 +26,11 @@ angular.module('cookeat-couchdb', [
             method : 'GET',
             cache : false,
             isArray : false,
-            transformResponse : function(data, headersGetter) {
-              console.log('data', data);
-              var lines = data.split("\n");// .splice(0);// .split("\n");
-              console.log('data type:', typeof (data), data);
-              var result = [];
-              for (var i = 0; i < lines.length; i++) {
-                var json;
-                try {
-                  json = JSON.parse(lines[i]);
-                } catch (error) {
-                  console.error('Cannot parse line:', lines[i], error);
-                  continue;
-                }
-                console.log('line', json);
-                result.push(json);
-              }
-              return result;
-            },
+        // transformResponse : function(data, headersGetter) {
+        // return {
+        // rows : JSON.parse(data),
+        // };
+        // },
         }
       });
     }

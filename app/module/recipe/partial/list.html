@@ -1,7 +1,7 @@
 <div role="button" class="btn btn-warning pull-right" ng-click="create()">Nouvelle recette</div>
 <h2>Liste des recettes <span class="badge">{{recipes.length}}</span></h2>
 <ul ng-repeat="recipe in recipes">
-  <li><a href="#!/recipe/view/{{recipe.id}}">{{recipe.key}}</a>
+  <li><a href="#!/recipe/view/{{recipe.id}}">{{recipe.title}}</a>
   <ul class="list-unstyled list-inline">
     <li ng-repeat="tag in recipe.value.tag"><h6><span class="label label-info">{{tag}}</span></h6></li>
   </ul>

@@ -3,12 +3,20 @@ function(doc) {
   // !code ../cookeat/vendor/cookeat/lib/validate.js
   
   if (doc.type != 'recipe') return;
-  if (!doc.title) return;
-  emit(doc.title, {
+  emit([doc.title, 0], {
+    type: doc.type,
     tag: doc.tag,
-    country: doc.country, 
-    language: doc.language,
-    created_on: doc.created_on,
-    updated_on: doc.updated_on,
+    ingredient: doc.ingredient
   });
+  var count = 1;
+  if (doc.ingredient && Array.isArray(doc.ingredient)) {
+    doc.ingredient.forEach(function (ingredient) {
+      emit([doc.title, count++], {_id: ingredient, type: 'ingredient'});
+    });
+  }
+  if (doc.tag && Array.isArray(doc.tag)) {
+    doc.tag.forEach(function (tag) {
+      emit([doc.title, count++], {tag: tag.toLowerCase(), type: 'tag'});
+    });
+  }
 }; 
